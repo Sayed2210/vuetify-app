@@ -283,20 +283,20 @@
       </v-breadcrumbs>
     </v-layout>
     -->
-    <v-card>
+    <!-- <v-card>
       <v-container fluid>
         <v-row>
           <v-col cols="12">
-            <h2>{{ search }}</h2>
-            <!-- <v-autocomplete
+            <h2>{{ selected }}</h2>
+            <v-autocomplete
               v-model="values"
               :items="items"
               label="Default"
               v-model:search="search"
               :error-messages="errMsg"
               class="text-start"
-            ></v-autocomplete> -->
-            <!-- <v-select
+            ></v-autocomplete>
+            <v-select
               :items="items"
               density="comfortable"
               label="Comfortable"
@@ -308,32 +308,177 @@
               item-title="state"
               item-value="abbr"
             ></v-select>
-            <v-btn @click="validate">Submit</v-btn> -->
-            
+            <v-btn @click="validate">Submit</v-btn>
+            <v-row>
+              <v-col cols="3" v-for="item in items" :key="item.state">
+                <v-card
+                  ><v-card-title>{{ item.state }}</v-card-title>
+                  <v-card-actions>
+                    <v-checkbox
+                      label="Chosen One"
+                      :value="item.state"
+                      v-model="selected"
+                    ></v-checkbox> </v-card-actions></v-card
+              ></v-col>
+            </v-row>
+            <v-row
+              ><v-col cols="12">{{ selected }}</v-col></v-row
+            >
+            <v-radio-group v-model="selected">
+              <v-radio label="Ahmed" value="Ahmed"></v-radio>
+              <v-radio label="Elsayed" value="Elsayed"></v-radio>
+              <v-radio label="Hassan" value="Hassan"></v-radio>
+              <v-radio label="Mohamed" value="Mohamed"></v-radio>
+            </v-radio-group>
+            <v-file-input
+              v-model:model-value="img"
+              show-size
+              counter
+              multiple
+              label="File input"
+              @update:model-value="renderImg()"
+            ></v-file-input>
+            <v-card><img :src="imgUrl" alt="" /></v-card>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12">
+            <v-slider
+              append-icon="mdi-plus"
+              prepend-icon="mdi-minus"
+              @click:append="inc"
+              @click:prepend="dec"
+              thumb-label="always"
+              v-model="range"
+              min="0"
+              max="100"
+            ></v-slider>
           </v-col>
         </v-row>
       </v-container>
-    </v-card>
+    </v-card> -->
+    <!-- <v-layout>
+      <v-app-bar :theme="switchTheme"> </v-app-bar>
+      <v-container>
+        <v-row>
+          <v-col cols="12">
+            <v-card>
+              <v-switch
+                label="Theme"
+                v-model="switchTheme"
+                false-value="light"
+                true-value="dark"
+              ></v-switch>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+      <v-footer :theme="switchTheme">
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit
+        doloribus rerum sed vero, vitae nihil quibusdam aperiam hic, illum eos
+        facere aspernatur eligendi perspiciatis ipsa similique, illo ipsum atque
+        veritatis.
+      </v-footer>
+    </v-layout> -->
+    <v-container>
+      <v-row>
+        <v-col cols="3">
+          <v-btn-toggle v-model="toggle" background-color="primary" dark>
+            <v-btn value="start">
+              <v-icon>mdi-format-align-left</v-icon>
+            </v-btn>
+            <v-btn value="center">
+              <v-icon>mdi-format-align-center</v-icon>
+            </v-btn>
+            <v-btn value="end">
+              <v-icon>mdi-format-align-right</v-icon>
+            </v-btn>
+          </v-btn-toggle>
+        </v-col>
+        <v-col cols="3">
+          <v-btn-toggle
+            v-model="fontStyle"
+            background-color="primary"
+            dark
+            multiple
+          >
+            <v-btn value="bold">
+              <v-icon>mdi-format-bold</v-icon>
+            </v-btn>
+            <v-btn value="italic">
+              <v-icon>mdi-format-italic</v-icon>
+            </v-btn>
+            <v-btn value="underline">
+              <v-icon>mdi-format-underline</v-icon>
+            </v-btn>
+          </v-btn-toggle>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12">
+          <v-card>
+            <textarea
+              :class="`text-${toggle} w-100 font-weight-${fbold}`"
+              rows="10"
+              :style="`font-style: ${fitalic}; text-decoration: ${funderline}`"
+            ></textarea>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-const search = ref("");
-const errMsg = ref("");
-const validate = () => {
-  errMsg.value = "";
-  if (!errMsg.value) {
-    errMsg.value = "Please Enter A Value";
-  }
-};
-const items = ref([
-  { state: "Florida", abbr: "FL" },
-  { state: "Georgia", abbr: "GA" },
-  { state: "Nebraska", abbr: "NE" },
-  { state: "California", abbr: "CA" },
-  { state: "New York", abbr: "NY" },
-]);
+import { ref, computed } from "vue";
+const toggle = ref([]);
+const fontStyle = ref([]);
+const fbold = computed(() => {
+  return fontStyle.value.filter((el) => el === "bold").join();
+});
+const fitalic = computed(() => {
+  return fontStyle.value.filter((el) => el === "italic").join();
+});
+const funderline = computed(() => {
+  return fontStyle.value.filter((el) => el === "underline").join();
+});
+// const switchTheme = ref("light");
+// const range = ref(0);
+// const inc = () => {
+//   range.value += 10;
+// };
+// const dec = () => {
+//   range.value -= 10;
+// };
+// const search = ref("");
+// const errMsg = ref("");
+// const validate = () => {
+//   errMsg.value = "";
+//   if (!errMsg.value) {
+//     errMsg.value = "Please Enter A Value";
+//   }
+// };
+// const img = ref([]);
+// const imgUrl = ref("");
+// const renderImg = () => {
+//   console.log(img.value);
+//   if (!img.value[0]) {
+//     imgUrl.value = "";
+//     return;
+//   }
+//   const file = img.value[0];
+//   const reader = new FileReader();
+//   reader.readAsDataURL(file);
+//   reader.addEventListener("load", () => {
+//     imgUrl.value = reader.result;
+//   });
+// };
+// const items = ref([
+//   { state: "Florida" },
+//   { state: "Georgia" },
+//   { state: "Nebraska" },
+//   { state: "California" },
+// ]);
 // const drawer = ref(false);
 // const page = ref(1);
 // const passengers = ref([]);
