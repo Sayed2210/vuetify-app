@@ -1,6 +1,91 @@
 <template>
   <div class="home">
-    <v-container>
+    <!-- navigation-drawer -->
+    <!-- <v-layout>
+      
+
+      <v-navigation-drawer location="left" permanent expand-on-hover rail>
+        <v-list :items="items"></v-list>
+      </v-navigation-drawer>
+      <v-app-bar color="primary" prominent>
+        <v-app-bar-nav-icon variant="text"></v-app-bar-nav-icon>
+
+        <v-toolbar-title>My files</v-toolbar-title>
+
+        <v-spacer></v-spacer>
+
+        <v-btn variant="text" icon="mdi-magnify"></v-btn>
+
+        <v-btn variant="text" icon="mdi-filter"></v-btn>
+
+        <v-btn variant="text" icon="mdi-dots-vertical"></v-btn>
+      </v-app-bar>
+
+      <v-main style="height: 500px">
+        <v-card-text>
+          The navigation drawer will appear from the bottom on smaller size
+          screens.
+        </v-card-text>
+      </v-main>
+    </v-layout> -->
+    <!-- <v-container>
+      <v-row>
+        <v-col cols="4" v-for="num in 3" :key="num">Elsayed</v-col>
+      </v-row>
+    </v-container>
+    <v-card>
+      <v-tabs v-model="tab" bg-color="primary">
+        <v-tab :value="num" v-for="num in 4" :key="num">Item {{ num }}</v-tab>
+      </v-tabs>
+
+      <v-card-text>
+        <v-window v-model="tab">
+          <v-window-item :value="num" v-for="num in 4" :key="num">
+            Content {{ num }}
+          </v-window-item>
+        </v-window>
+      </v-card-text>
+    </v-card>
+    <v-card class="w-100">
+      <v-progress-linear
+        indeterminate
+        :height="5"
+        v-if="loading"
+      ></v-progress-linear>
+      <v-progress-circular
+        indeterminate
+        v-if="loading"
+        class="d-block"
+      ></v-progress-circular>
+      <v-btn @click="startLoading">Loding</v-btn>
+    </v-card> -->
+
+    <!-- api call for pagination -->
+    <!-- <v-container>
+      <v-row>
+        <v-col cols="12">
+          <v-card :loading="loading">
+            <v-row v-if="!loading">
+              <v-col cols="3" v-for="item in passengers.data" :key="item._id"
+                ><v-card
+                  ><v-card-title> {{ item.name }}</v-card-title>
+                  <v-card-subtitle> {{ item.trips }}</v-card-subtitle>
+                </v-card></v-col
+              >
+            </v-row>
+          </v-card>
+        </v-col>
+        <v-col cols="12"
+          ><v-pagination
+            v-model="page"
+            :length="passengers.totalPages"
+            rounded="0"
+            @update:model-value="getData"
+          ></v-pagination
+        ></v-col>
+      </v-row>
+    </v-container> -->
+    <!-- <v-container>
       <v-row>
         <v-col cols="12" md="4" lg="4" sm="6"
           ><v-row>
@@ -16,7 +101,9 @@
     <v-btn color="blue" @click="clickme" :loading="loading"
       >Hey! <v-icon color="white" icon="mdi-arrow-left"></v-icon
     ></v-btn>
-    <v-container>
+      -->
+    <!-- cards -->
+    <!-- <v-container>
       <v-row>
         <v-col v-for="num in numbers" :key="num">
           <v-card class="mx-auto" max-width="344">
@@ -58,16 +145,18 @@
           </v-card>
         </v-col>
       </v-row>
-    </v-container>
-    <v-divider></v-divider>
-    <v-expansion-panels>
+    </v-container> -->
+    <!-- <v-divider></v-divider> -->
+    <!-- <v-expansion-panels>
       <v-expansion-panel
         title="Title"
         text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima"
       >
       </v-expansion-panel>
-    </v-expansion-panels>
-    <v-btn color="primary" id="my_menu"> Dropdown </v-btn>
+    </v-expansion-panels> -->
+
+    <!-- menu -->
+    <!-- <v-btn color="primary" id="my_menu"> Dropdown </v-btn>
     <v-menu activator="#my_menu" location="bottom">
       <v-list :items="items"></v-list>
     </v-menu>
@@ -85,9 +174,9 @@
           </v-list-item>
         </v-list>
 
-        <v-divider></v-divider>
-
-        <v-list :lines="false" density="compact" nav>
+        <v-divider></v-divider> -->
+    <!-- lists -->
+    <!-- <v-list :lines="false" density="compact" nav>
           <v-list-item
             v-for="(item, i) in items"
             :key="i"
@@ -100,7 +189,7 @@
 
             <v-list-item-title v-text="item.text"></v-list-item-title>
           </v-list-item>
-        </v-list>
+        </v-list> 
       </v-navigation-drawer>
 
       <v-main style="height: 354px"></v-main>
@@ -193,43 +282,122 @@
         </template>
       </v-breadcrumbs>
     </v-layout>
+    -->
+    <v-card>
+      <v-container fluid>
+        <v-row>
+          <v-col cols="12">
+            <h2>{{ search }}</h2>
+            <!-- <v-autocomplete
+              v-model="values"
+              :items="items"
+              label="Default"
+              v-model:search="search"
+              :error-messages="errMsg"
+              class="text-start"
+            ></v-autocomplete> -->
+            <!-- <v-select
+              :items="items"
+              density="comfortable"
+              label="Comfortable"
+              v-model="search"
+              :error-messages="errMsg"
+              class="text-start"
+              multiple
+              return-object
+              item-title="state"
+              item-value="abbr"
+            ></v-select>
+            <v-btn @click="validate">Submit</v-btn> -->
+            
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-card>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-const numbers = ref([1, 2, 3]);
-const loading = ref(false);
-const items = ref([
-  { text: "My Files", icon: "mdi-folder" },
-  { text: "Shared with me", icon: "mdi-account-multiple" },
-  { text: "Starred", icon: "mdi-star" },
-  { text: "Recent", icon: "mdi-history" },
-  { text: "Offline", icon: "mdi-check-circle" },
-  { text: "Uploads", icon: "mdi-upload" },
-  { text: "Backups", icon: "mdi-cloud-upload" },
-]);
-const links = ref([
-  {
-    title: "Dashboard",
-    disabled: false,
-    href: "breadcrumbs_dashboard",
-  },
-  {
-    title: "Link 1",
-    disabled: false,
-    href: "breadcrumbs_link_1",
-  },
-  {
-    title: "Link 2",
-    disabled: true,
-    href: "breadcrumbs_link_2",
-  },
-]);
-const clickme = () => {
-  loading.value = true;
-  setTimeout(() => {
-    loading.value = false;
-  }, 2000);
+const search = ref("");
+const errMsg = ref("");
+const validate = () => {
+  errMsg.value = "";
+  if (!errMsg.value) {
+    errMsg.value = "Please Enter A Value";
+  }
 };
+const items = ref([
+  { state: "Florida", abbr: "FL" },
+  { state: "Georgia", abbr: "GA" },
+  { state: "Nebraska", abbr: "NE" },
+  { state: "California", abbr: "CA" },
+  { state: "New York", abbr: "NY" },
+]);
+// const drawer = ref(false);
+// const page = ref(1);
+// const passengers = ref([]);
+// const loading = ref(true);
+// const getData = async () => {
+//   loading.value = true;
+//   await fetch(
+//     `https://api.instantwebtools.net/v1/passenger?page=${
+//       page.value - 1
+//     }&size=12`
+//   )
+//     .then((res) => res.json())
+//     .then((data) => {
+//       passengers.value = data;
+//       loading.value = false;
+//       console.log(passengers.value);
+//     });
+// };
+// onMounted(async () => {
+//   loading.value = true;
+//   await fetch(
+//     `https://api.instantwebtools.net/v1/passenger?page=${
+//       page.value - 1
+//     }&size=12`
+//   )
+//     .then((res) => res.json())
+//     .then((data) => {
+//       passengers.value = data;
+//       loading.value = false;
+//       console.log(passengers.value);
+//     });
+// });
+// const numbers = ref([1, 2, 3]);
+// const items = ref([
+//   { text: "My Files", icon: "mdi-folder" },
+//   { text: "Shared with me", icon: "mdi-account-multiple" },
+//   { text: "Starred", icon: "mdi-star" },
+//   { text: "Recent", icon: "mdi-history" },
+//   { text: "Offline", icon: "mdi-check-circle" },
+//   { text: "Uploads", icon: "mdi-upload" },
+//   { text: "Backups", icon: "mdi-cloud-upload" },
+// ]);
+// const links = ref([
+//   {
+//     title: "Dashboard",
+//     disabled: false,
+//     href: "breadcrumbs_dashboard",
+//   },
+//   {
+//     title: "Link 1",
+//     disabled: false,
+//     href: "breadcrumbs_link_1",
+//   },
+//   {
+//     title: "Link 2",
+//     disabled: true,
+//     href: "breadcrumbs_link_2",
+//   },
+// ]);
+// const loading = ref(false);
+// const startLoading = () => {
+//   loading.value = true;
+//   setTimeout(() => {
+//     loading.value = false;
+//   }, 2000);
+// };
 </script>
